@@ -24,8 +24,9 @@ export default function Home() {
           <div className="about-text-wrapper">
             <div className="about-text-container">
               <p>
-                Este portfólio é um espaço onde compartilho meus projetos, certificações e experiências. Explore as outras seções
-                para saber mais sobre o que faço.
+                Seja bem-vindo(a) ao meu espaço digital, onde transformo ideias em soluções. Este portfólio é um resumo do meu percurso, um lugar onde compartilho os projetos que desenvolvi, as habilidades que aprimorei e as certificações que conquistei.
+
+                Pra ver o que eu faço, navegue pelas outras seções pra conhecer um pouco mais sobre minha jornada. Tá tudo organizado pra lhe dar uma visão completa das minhas experiências e como posso agregar valor ao seu time.
               </p>
             </div>
             <div className="social-links-container">

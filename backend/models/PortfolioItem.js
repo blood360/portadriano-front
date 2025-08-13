@@ -14,23 +14,41 @@ const PortfolioItem = sequelize.define('PortfolioItem', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  imageUrl: {
+  // Campos para a imagem
+  imageData: {
+    type: DataTypes.TEXT('long'), 
+    allowNull: true
+  },
+  mimeType: {
     type: DataTypes.STRING,
     allowNull: true
   },
-  repositoryLink: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  projectLink: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
+  // Novos campos para certificados
   issuer: {
     type: DataTypes.STRING,
     allowNull: true
   },
-  date: {
+  startDate: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  endDate: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  hours: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
+  courseType: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  expectedEndDate: {
     type: DataTypes.STRING,
     allowNull: true
   }

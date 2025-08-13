@@ -17,16 +17,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Servir arquivos estáticos da pasta 'uploads'
-// Isso torna as imagens acessíveis via URL
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 // Conexão e sincronização com o banco de dados
 const connectDB = async () => {
   try {
     await sequelize.authenticate();
     console.log('Conexão com PostgreSQL estabelecida com sucesso.');
-    await sequelize.sync(); 
+    
+    // A opção { alter: true } atualiza as tabelas
+    await sequelize.sync({ alter: true }); 
     console.log('Modelos sincronizados com o banco de dados.');
   } catch (error) {
     console.error('Não foi possível conectar ao banco de dados:', error);

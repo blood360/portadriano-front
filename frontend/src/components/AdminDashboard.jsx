@@ -37,8 +37,17 @@ export default function AdminDashboard({ data, addItem, deleteItem, showNotifica
     formData.append('repositoryLink', newItem.repositoryLink);
     formData.append('projectLink', newItem.projectLink);
     formData.append('issuer', newItem.issuer);
-    formData.append('date', newItem.date);
     
+    // Anexando os novos campos para certificados
+    if (selectedType === 'certificates') {
+      formData.append('startDate', newItem.startDate);
+      formData.append('endDate', newItem.endDate);
+      formData.append('hours', newItem.hours);
+      formData.append('courseType', newItem.courseType);
+      formData.append('status', newItem.status);
+      formData.append('expectedEndDate', newItem.expectedEndDate);
+    }
+
     if (selectedFile) {
       formData.append('image', selectedFile);
     }
@@ -95,8 +104,49 @@ export default function AdminDashboard({ data, addItem, deleteItem, showNotifica
               <input type="text" id="certIssuer" name="issuer" value={newItem.issuer} onChange={handleInputChange} className="form-input" required />
             </div>
             <div className="form-group">
-              <label className="form-label" htmlFor="certDate">Data</label>
-              <input type="text" id="certDate" name="date" value={newItem.date} onChange={handleInputChange} className="form-input" />
+              <label className="form-label" htmlFor="certHours">Carga Horária</label>
+              <input type="number" id="certHours" name="hours" value={newItem.hours} onChange={handleInputChange} className="form-input" />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor="certCourseType">Tipo de Curso</label>
+              <select id="certCourseType" name="courseType" value={newItem.courseType} onChange={handleInputChange} className="form-select">
+                <option value="">Selecione o tipo</option>
+                <option value="Técnico">Técnico</option>
+                <option value="Profissionalizante">Profissionalizante</option>
+                <option value="Bacharelado">Bacharelado</option>
+                <option value="Bootcamp">Bootcamp</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor="certStatus">Status</label>
+              <select id="certStatus" name="status" value={newItem.status} onChange={handleInputChange} className="form-select">
+                <option value="">Selecione o status</option>
+                <option value="Concluído">Concluído</option>
+                <option value="Cursando">Cursando</option>
+              </select>
+            </div>
+            {newItem.status === 'Concluído' && (
+              <>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="certStartDate">Data de Início</label>
+                  <input type="date" id="certStartDate" name="startDate" value={newItem.startDate} onChange={handleInputChange} className="form-input" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="certEndDate">Data de Conclusão</label>
+                  <input type="date" id="certEndDate" name="endDate" value={newItem.endDate} onChange={handleInputChange} className="form-input" />
+                </div>
+              </>
+            )}
+            {newItem.status === 'Cursando' && (
+              <div className="form-group">
+                <label className="form-label" htmlFor="certExpectedEndDate">Previsão de Conclusão</label>
+                <input type="date" id="certExpectedEndDate" name="expectedEndDate" value={newItem.expectedEndDate} onChange={handleInputChange} className="form-input" />
+              </div>
+            )}
+            <div className="form-group">
+              <label className="form-label" htmlFor="certImage">Foto do Certificado</label>
+              <input type="file" id="certImage" name="image" accept="image/*" onChange={handleFileChange} className="form-input" />
             </div>
           </>
         );

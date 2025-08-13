@@ -37,6 +37,7 @@ body {
   flex-grow: 1;
   padding: 2rem;
   transition: margin-left 0.3s ease;
+  position: relative;
 }
 
 /* Sidebar */
@@ -158,6 +159,22 @@ body {
 
 .notification.hidden {
   transform: translateX(-50%) translateY(100px);
+}
+
+/* Animação de Transição de Página */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.page-transition-enter {
+  animation: slideInFromLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 /* Media Queries */

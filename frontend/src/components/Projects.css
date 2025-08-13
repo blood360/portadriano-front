@@ -122,6 +122,8 @@
 
 .title p {
   width: 50%;
+  font-weight: bold;
+  background-color: var(--secondary-color);
 }
 
 .card-footer {

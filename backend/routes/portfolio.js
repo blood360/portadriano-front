@@ -3,18 +3,9 @@ const router = express.Router();
 const auth = require('../middleware/authMiddleware');
 const PortfolioItem = require('../models/PortfolioItem');
 const multer = require('multer');
-const path = require('path');
 
-// Configuração do Multer para armazenamento
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Pasta 'uploads' na raiz do projeto
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-
+// Configuração do Multer para processar o arquivo em memória, sem salvar em disco
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // @route   GET /api/portfolio
@@ -30,26 +21,52 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route   GET /api/portfolio/:id
+// @desc    Obter um item do portfólio por ID
+// @access  Público
+router.get('/:id', async (req, res) => {
+  try {
+    const item = await PortfolioItem.findByPk(req.params.id);
+    if (!item) {
+      return res.status(404).json({ msg: 'Item não encontrado' });
+    }
+    res.json(item);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Erro do servidor');
+  }
+});
+
 // @route   POST /api/portfolio
 // @desc    Adicionar um novo item com upload de imagem
 // @access  Privado
 router.post('/', auth, upload.single('image'), async (req, res) => {
   try {
-    // Obtenha a URL da imagem se um arquivo foi enviado
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+    let imageData = null;
+    let mimeType = null;
     
-    // Obtenha os outros dados do corpo da requisição
-    const { title, description, type, repositoryLink, projectLink, issuer, date } = req.body;
+    if (req.file) {
+      imageData = req.file.buffer.toString('base64');
+      mimeType = req.file.mimetype;
+    }
+    
+    const { title, description, type, repositoryLink, projectLink, issuer, startDate, endDate, hours, courseType, status, expectedEndDate } = req.body;
     
     const newItem = await PortfolioItem.create({
       title,
       description,
       type,
-      imageUrl,
+      imageData,
+      mimeType,
       repositoryLink,
       projectLink,
       issuer,
-      date,
+      startDate,
+      endDate,
+      hours,
+      courseType,
+      status,
+      expectedEndDate
     });
     res.status(201).json(newItem);
   } catch (err) {

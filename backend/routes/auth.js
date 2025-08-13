@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const User = require('../models/User');
 
 // @route   POST /api/auth/login
 // @desc    Autenticar usuário e obter token
@@ -43,7 +43,6 @@ router.post('/login', async (req, res) => {
 });
 
 // Apenas para fins de teste, para criar o usuário inicial
-// ** Remova esta rota em um ambiente de produção **
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
     try {

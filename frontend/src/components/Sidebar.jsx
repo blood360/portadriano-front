@@ -1,5 +1,7 @@
 import React from 'react';
-import { Home, Folder, Award, Mail, LogIn, LogOut, LayoutDashboard, Menu, X, User2 } from 'lucide-react'; 
+import { Link } from 'react-router-dom';
+import { Home as HomeIcon, Folder, Award, Mail, LogIn, LogOut, LayoutDashboard, Menu, X, User2 } from 'lucide-react';
+import './Sidebar.css';
 
 export default function Sidebar({ currentPage, setCurrentPage, isSidebarOpen, setIsSidebarOpen, isAuthenticated, handleLogout }) {
   const toggleSidebar = () => {
@@ -17,74 +19,46 @@ export default function Sidebar({ currentPage, setCurrentPage, isSidebarOpen, se
         </div>
 
         <nav className="nav-links">
-          <a
-            href="#"
-            onClick={() => setCurrentPage('home')}
-            className={currentPage === 'home' ? 'active' : ''}
-          >
-            <Home size={20} />
+          <Link to="/" onClick={() => setCurrentPage('home')} className={currentPage === 'home' ? 'active' : ''}>
+            <HomeIcon size={20} />
             <span>Home</span>
-          </a>
-          <a
-            href="#"
-            onClick={() => setCurrentPage('projects')}
-            className={currentPage === 'projects' ? 'active' : ''}
-          >
-            <Folder size={20} />
-            <span>Projetos</span>
-          </a>
-          <a
-            href="#"
-            onClick={() => setCurrentPage('certificates')}
-            className={currentPage === 'certificates' ? 'active' : ''}
-          >
-            <Award size={20} />
-            <span>Certificados</span>
-          </a>
-          <a
-            href="#"
-            onClick={() => setCurrentPage('contacts')}
-            className={currentPage === 'contacts' ? 'active' : ''}
-          >
-            <Mail size={20} />
-            <span>Contatos</span>
-          </a>
-          <a 
-          href="#"
-          onClick={() => setCurrentPage('about')}
-          className={currentPage === 'about' ? 'active' : ''}
-          >
+          </Link>
+          <Link to="/about" onClick={() => setCurrentPage('about')} className={currentPage === 'about' ? 'active' : ''}>
             <User2 size={20} />
             <span>Sobre Mim</span>
-          </a>
+          </Link>
+          <Link to="/projects" onClick={() => setCurrentPage('projects')} className={currentPage === 'projects' ? 'active' : ''}>
+            <Folder size={20} />
+            <span>Projetos</span>
+          </Link>
+          <Link to="/certificates" onClick={() => setCurrentPage('certificates')} className={currentPage === 'certificates' ? 'active' : ''}>
+            <Award size={20} />
+            <span>Certificados</span>
+          </Link>
+          <Link to="/contacts" onClick={() => setCurrentPage('contacts')} className={currentPage === 'contacts' ? 'active' : ''}>
+            <Mail size={20} />
+            <span>Contatos</span>
+          </Link>
         </nav>
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto nav-links">
         {isAuthenticated ? (
           <>
-            <a
-              href="#"
-              onClick={() => setCurrentPage('admin-dashboard')}
-              className={currentPage === 'admin-dashboard' ? 'active' : ''}
-            >
+            <Link to="/admin-dashboard" onClick={() => setCurrentPage('admin-dashboard')} className={currentPage === 'admin-dashboard' ? 'active' : ''}>
               <LayoutDashboard size={20} />
               <span>Dashboard</span>
-            </a>
-            <a href="#" onClick={handleLogout}>
+            </Link>
+            <Link to="#" onClick={handleLogout}>
               <LogOut size={20} />
               <span>Sair</span>
-            </a>
+            </Link>
           </>
         ) : (
-          <a
-            href="#"
-            onClick={() => setCurrentPage('admin-login')}
-            className={currentPage === 'admin-login' ? 'active' : ''}
-          >
+          <Link to="/admin-login" onClick={() => setCurrentPage('admin-login')} className={currentPage === 'admin-login' ? 'active' : ''}>
             <LogIn size={20} />
             <span>Login Admin</span>
-          </a>
+          </Link>
         )}
       </div>
     </aside>

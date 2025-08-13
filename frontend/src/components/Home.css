@@ -1,4 +1,24 @@
+.page-title {
+  font-family: 'Poppins', sans-serif; /* Uma fonte elegante e moderna */
+  font-size: 2.5rem; /* Um tamanho bom pra chamar atenção */
+  font-weight: 700; /* Pra deixar o texto mais forte */
+  color: #333; /* Uma cor escura, mas não preto chapado */
+  text-align: center; /* Pra centralizar o título na página */
+  text-transform: uppercase; /* Pra deixar as letras maiúsculas */
+  letter-spacing: 2px; /* Pra dar um espaço entre as letras e dar um charme */
+  margin-bottom: 20px; /* Pra afastar o título do conteúdo abaixo */
+  position: relative; /* Pra poder usar o pseudo-elemento ::after */
+}
 
+.page-title::after {
+  content: ''; /* Essencial para criar o elemento */
+  display: block; /* Pra ele ocupar a linha toda */
+  width: 80px; /* Largura da linha */
+  height: 4px; /* Altura da linha */
+  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% ); /* Uma cor de destaque pra linha, pode ser a cor principal do teu projeto */
+  margin: 10px auto 0; /* Centraliza a linha e dá um espaço */
+  border-radius: 2px; /* Pra dar uma suavizada nas bordas da linha */
+}
 .home-card {
   text-align: center;
 }
@@ -22,9 +42,11 @@
 .about-text-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2.5rem;
   align-items: flex-start; /* Alinhamento à esquerda para o texto */
   flex-grow: 1;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
 }
 
 .about-text-container {
@@ -48,7 +70,7 @@
   border-radius: 8px;
   cursor: pointer;
   color: white;
-  margin-right: 2rem; /* Espaço entre o card e o texto */
+  margin-right: 3rem; /* Espaço entre o card e o texto */
 }
 
 .card::before {
@@ -132,6 +154,7 @@
   justify-content: center;
   gap: 1rem;
   backdrop-filter: blur(15px);
+  
   box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.192),
     inset 0 0 5px rgba(255, 255, 255, 0.274), 0 5px 5px rgba(0, 0, 0, 0.164);
   transition: 0.5s;
@@ -139,7 +162,7 @@
 
 .social-links-container .social-card:hover {
   animation: ease-out 5s;
-  background: rgba(173, 173, 173, 0.05);
+  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
 }
 
 .social-links-container .social-card ul {
