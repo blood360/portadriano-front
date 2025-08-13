@@ -1,0 +1,41 @@
+import React from 'react';
+import './Projects.css';
+
+export default function Projects({ projects }) {
+  return (
+    <div className="page-container">
+      <h1 className="page-title">Meus Projetos</h1>
+      <div className="grid-container">
+        {projects.map(project => (
+          <div key={project.id} className="card">
+            <div className="content">
+              {/* Lado da frente do card (mostra a imagem) */}
+              <div className="front">
+                {project.imageUrl && <img src={`http://localhost:5000${project.imageUrl}`} alt={project.title} className="img" />}
+                <div className="front-content">
+                  <div className="title">
+                    <p>{project.title}</p>
+                    <span className="badge">Projeto</span>
+                  </div>
+                  <div className="card-footer">
+                    <span>{project.repositoryLink && <a href={project.repositoryLink} target="_blank" rel="noopener noreferrer">Repositório</a>}</span>
+                    <span>{project.projectLink && <a href={project.projectLink} target="_blank" rel="noopener noreferrer">Site</a>}</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Lado de trás do card (mostra a descrição) */}
+              <div className="back">
+                <div className="back-content">
+                  <div className="description">
+                    {project.description}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
