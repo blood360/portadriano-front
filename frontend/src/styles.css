@@ -1,0 +1,183 @@
+/* styles.css - Estilos globais para a aplicação */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #facc15;
+  --secondary-color: #eab308;
+  --bg-dark: #121212;
+  --bg-medium: #1f1f1f;
+  --bg-light: #2a2b30;
+  --text-color: #ffffff;
+  --text-secondary: #a0a0a0;
+  --red-error: #ef4444;
+  --green-success: #22c55e;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layout Geral */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  transition: margin-left 0.3s ease;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: var(--bg-medium);
+  padding: 2rem 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar.closed {
+  width: 60px;
+}
+
+.sidebar .nav-links a {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar .nav-links a:hover,
+.sidebar .nav-links a.active {
+  background-color: var(--primary-color);
+  color: var(--bg-dark);
+  font-weight: 500;
+}
+
+.sidebar .nav-links a svg {
+  min-width: 20px;
+  margin-right: 1rem;
+  transition: margin-right 0.3s ease;
+}
+
+.sidebar.closed .nav-links a span {
+  display: none;
+}
+
+.sidebar.closed .nav-links a svg {
+  margin-right: 0;
+}
+
+.sidebar .toggle-button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.sidebar .toggle-button:hover {
+  background-color: #333;
+  color: var(--text-color);
+}
+
+/* Componentes Comuns */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--text-color);
+}
+
+.card {
+  background-color: var(--bg-medium);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+}
+
+/* Notificação */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  color: var(--text-color);
+  font-weight: 500;
+  z-index: 2000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.notification.success {
+  background-color: var(--green-success);
+}
+
+.notification.error {
+  background-color: var(--red-error);
+}
+
+.notification.hidden {
+  transform: translateX(-50%) translateY(100px);
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+  .main-content-wide {
+    margin-left: 250px;
+  }
+  .main-content-narrow {
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main-content {
+    margin-left: 0;
+  }
+}
