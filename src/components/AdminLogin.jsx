@@ -44,7 +44,7 @@ export default function AdminLogin({ onLogin }) {
           </button>
         </form>
         <p className="login-disclaimer">
-          ATENÇÃO! Somente pode ser acessado por mim!
+          ATENÇÃO! Somente pode ser acessado por Adriano Santos!
         </p>
       </div>
     </div>

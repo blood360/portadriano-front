@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar.jsx';
 import Notification from './components/Notification.jsx';
 import Home from './components/Home.jsx';
@@ -7,13 +8,14 @@ import Certificates from './components/Certificates.jsx';
 import Contacts from './components/Contacts.jsx';
 import AdminLogin from './components/AdminLogin.jsx';
 import AdminDashboard from './components/AdminDashboard.jsx';
-import About from './components/About.jsx'; // Importação correta do novo componente
+import About from './components/About.jsx';
+import ProjectDetail from './components/ProjectDetail.jsx';
 import './styles.css';
 
-// URL base da sua API.
-const API_URL = 'http://localhost:5000/api';
+// Lê a URL da API da variável de ambiente
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-export default function App() {
+const AppContent = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -150,27 +152,6 @@ export default function App() {
     }
   };
 
-  const renderPage = () => {
-    switch (currentPage) {
-        case 'home':
-            return <Home />;
-        case 'about':
-            return <About />;
-        case 'projects':
-            return <Projects projects={portfolioData.projects} />;
-        case 'certificates':
-            return <Certificates certificates={portfolioData.certificates} />;
-        case 'contacts':
-            return <Contacts showNotification={showSystemNotification} />;
-        case 'admin-login':
-            return isAuthenticated ? <AdminDashboard data={portfolioData} addItem={addPortfolioItem} deleteItem={deletePortfolioItem} showNotification={showSystemNotification} /> : <AdminLogin onLogin={handleLogin} />;
-        case 'admin-dashboard':
-            return isAuthenticated ? <AdminDashboard data={portfolioData} addItem={addPortfolioItem} deleteItem={deletePortfolioItem} showNotification={showSystemNotification} /> : <AdminLogin onLogin={handleLogin} />;
-        default:
-            return <Home />;
-    }
-};
-
   return (
     <div className={`app-container`}>
       <Sidebar
@@ -183,10 +164,29 @@ export default function App() {
       />
       <main className={`main-content ${isSidebarOpen ? 'main-content-wide' : 'main-content-narrow'}`}>
         <Notification show={showNotification} message={notificationMessage} type={notificationType} />
-        <div className="max-w-7xl mx-auto py-8">
-          {renderPage()}
+        <div key={currentPage} className="max-w-7xl mx-auto py-8 page-transition-enter">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<Projects projects={portfolioData.projects} />} />
+            {/* Passa a API_URL como prop para o ProjectDetail */}
+            <Route path="/projects/:id" element={<ProjectDetail API_URL={API_URL} />} />
+            <Route path="/certificates" element={<Certificates certificates={portfolioData.certificates} />} />
+            <Route path="/contacts" element={<Contacts showNotification={showSystemNotification} />} />
+            <Route path="/admin-login" element={isAuthenticated ? <AdminDashboard data={portfolioData} addItem={addPortfolioItem} deleteItem={deletePortfolioItem} showNotification={showSystemNotification} /> : <AdminLogin onLogin={handleLogin} />} />
+            <Route path="/admin-dashboard" element={isAuthenticated ? <AdminDashboard data={portfolioData} addItem={addPortfolioItem} deleteItem={deletePortfolioItem} showNotification={showSystemNotification} /> : <AdminLogin onLogin={handleLogin} />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
         </div>
       </main>
     </div>
+  );
+};
+
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
