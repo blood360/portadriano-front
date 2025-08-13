@@ -23,7 +23,7 @@ const connectDB = async () => {
     await sequelize.authenticate();
     console.log('Conexão com PostgreSQL estabelecida com sucesso.');
     
-    // A opção { alter: true } atualiza as tabelas
+    // A opção { alter: true } vai criar/atualizar as tabelas na primeira vez
     await sequelize.sync({ alter: true }); 
     console.log('Modelos sincronizados com o banco de dados.');
   } catch (error) {
