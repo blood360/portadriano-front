@@ -14,7 +14,6 @@ const PortfolioItem = sequelize.define('PortfolioItem', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  // Campos para a imagem em Base64
   imageData: {
     type: DataTypes.TEXT('long'), 
     allowNull: true
@@ -23,7 +22,6 @@ const PortfolioItem = sequelize.define('PortfolioItem', {
     type: DataTypes.STRING,
     allowNull: true
   },
-  // Novos campos para certificados
   issuer: {
     type: DataTypes.STRING,
     allowNull: true

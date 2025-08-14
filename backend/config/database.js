@@ -4,8 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const sequelize = new Sequelize(
-  // Use a Internal Database URL para conectar
-  'postgresql://meu_portfolio_db_dfqo_user:JwsLvMqc98unAMCA2w0acLNC00sdVHZR@dpg-d2ed1tuuk2gs73b9ia6g-a/meu_portfolio_db_dfqo',
+  process.env.DATABASE_URL,
   {
     dialect: 'postgres',
     logging: false,
