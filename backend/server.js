@@ -4,21 +4,26 @@ const dotenv = require('dotenv');
 const sequelize = require('./config/database');
 const path = require('path');
 
+// Importar as rotas
 const authRoutes = require('./routes/auth');
 const portfolioRoutes = require('./routes/portfolio');
 
+// Carregar variáveis de ambiente
 dotenv.config();
 
 const app = express();
 
+// Middleware
 app.use(express.json());
 app.use(cors());
 
+// Conexão e sincronização com o banco de dados
 const connectDB = async () => {
   try {
     await sequelize.authenticate();
     console.log('Conexão com PostgreSQL estabelecida com sucesso.');
     
+    // A opção { alter: true } vai criar/atualizar as tabelas na primeira vez
     await sequelize.sync({ alter: true }); 
     console.log('Modelos sincronizados com o banco de dados.');
   } catch (error) {
@@ -26,9 +31,11 @@ const connectDB = async () => {
   }
 };
 
+// Rotas da API
 app.use('/api/auth', authRoutes);
 app.use('/api/portfolio', portfolioRoutes);
 
+// Rota de teste
 app.get('/', (req, res) => {
   res.send('API do portfólio está rodando!');
 });
